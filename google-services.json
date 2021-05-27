@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "858652034639",
+    "project_id": "hygeia-bea47",
+    "storage_bucket": "hygeia-bea47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858652034639:android:84c9e4d192fb5985ee4c3a",
+        "android_client_info": {
+          "package_name": "com.srikar.hygeia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOQsYS-ghiLCynCX_bnP7d_shuoVpZcuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858652034639-u4i4l3fhhhipua9jn114ifsc4rha34sr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "858652034639-jv6b6guugrp36bm6koks2av5fpcm6l99.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
