@@ -29,27 +29,9 @@ const RegisterScreen = ({ navigation }) => {
 
   const register = async () => {
     if (password == confirmPassword) {
-      const response = await fetch("http://127.0.0.1:8080/register/encrypt", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          password: password,
-        }),
-      });
-      const json = await response.json();
-      if (json["status"] === "success") {
-        const apiPass = json["hashPass"];
-        auth
-          .createUserWithEmailAndPassword(email, apiPass)
-          .then(() =>
-            dispatch(setUser({ name: fullName, hash: apiPass, email: email }))
-          );
-      } else {
-        Alert.alert("Failure", "Encryption Failed!");
-      }
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => dispatch(setUser({ name: fullName, email: email })));
     } else {
       Alert.alert("Failure", "Passwords don't match!");
     }

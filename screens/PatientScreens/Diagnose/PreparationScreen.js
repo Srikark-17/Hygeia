@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 const PreparationScreen = () => {
   return (
     <View>
-      <Text>Prepare</Text>
+      <Text>Note</Text>
     </View>
   );
 };

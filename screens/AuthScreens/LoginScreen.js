@@ -24,42 +24,21 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const DismissKeyboard = ({ children }) => (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      {children}
-    </TouchableWithoutFeedback>
-  );
-
   const login = () => {
-    db.collection("patients")
-      .where("email", "==", email)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach(async (doc) => {
-          const response = await fetch("http://127.0.0.1:8080/login/verify", {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              hashPassword: doc.data().password,
-              password: password,
-            }),
+    auth.signInWithEmailAndPassword(email, doc.data().password).then(() =>
+      db
+        .collection("patients")
+        .where("email", "==", email)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            dispatch(setRole(doc.data().userRole));
           });
-          const json = await response.json();
-          if (json["status"] === "success") {
-            auth
-              .signInWithEmailAndPassword(email, doc.data().password)
-              .then(() => dispatch(setRole(doc.data().userRole)));
-          } else {
-            Alert.alert("Failure", "You have entered the wrong password");
-          }
-        });
-      })
-      .catch((error) => {
-        Alert.alert("Failure", "Could not find any records");
-      });
+        })
+        .catch((error) => {
+          Alert.alert("Failure", "Could not find any records");
+        })
+    );
   };
 
   async function signInWithGoogleAsync() {
@@ -93,69 +72,71 @@ const LoginScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={loginStyles.container}>
-      <Text style={loginStyles.title}>Login</Text>
-      <TouchableOpacity onPress={signInWithGoogleAsync}>
-        <View style={loginStyles.googleLoginContainer}>
-          <Image
-            source={require("../../assets/googleLogo.png")}
-            style={{
-              width: WP(8.21),
-              height: HP(3.79),
-            }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={loginStyles.container}>
+        <Text style={loginStyles.title}>Login</Text>
+        <TouchableOpacity onPress={signInWithGoogleAsync}>
+          <View style={loginStyles.googleLoginContainer}>
+            <Image
+              source={require("../../assets/googleLogo.png")}
+              style={{
+                width: WP(8.21),
+                height: HP(3.79),
+              }}
+            />
+            <Text style={loginStyles.googleText}>Continue with Google</Text>
+          </View>
+        </TouchableOpacity>
+        <Text style={loginStyles.otherOptionText}>Or sign up with email</Text>
+        <View style={loginStyles.formContainer}>
+          <TextInput
+            onChangeText={(emailText) => setEmail(emailText)}
+            value={email}
+            style={loginStyles.inputContainer}
+            placeholderTextColor={appColors.darkGray}
+            placeholder="Email"
+            autoCorrect={false}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            autoCompleteType="email"
+            textContentType="emailAddress"
           />
-          <Text style={loginStyles.googleText}>Continue with Google</Text>
+          <TextInput
+            onChangeText={(passwordText) => setPassword(passwordText)}
+            value={password}
+            style={loginStyles.inputContainer}
+            placeholder="Password"
+            placeholderTextColor={appColors.darkGray}
+            autoCorrect={false}
+            autoCapitalize="none"
+            autoCompleteType="password"
+            textContentType="password"
+            secureTextEntry={true}
+          />
         </View>
-      </TouchableOpacity>
-      <Text style={loginStyles.otherOptionText}>Or sign up with email</Text>
-      <View style={loginStyles.formContainer}>
-        <TextInput
-          onChangeText={(emailText) => setEmail(emailText)}
-          value={email}
-          style={loginStyles.inputContainer}
-          placeholderTextColor={appColors.darkGray}
-          placeholder="Email"
-          autoCorrect={false}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          autoCompleteType="email"
-          textContentType="emailAddress"
-        />
-        <TextInput
-          onChangeText={(passwordText) => setPassword(passwordText)}
-          value={password}
-          style={loginStyles.inputContainer}
-          placeholder="Password"
-          placeholderTextColor={appColors.darkGray}
-          autoCorrect={false}
-          autoCapitalize="none"
-          autoCompleteType="password"
-          textContentType="password"
-          secureTextEntry={true}
-        />
-      </View>
-      <Text
-        style={loginStyles.forgotPasswordText}
-        onPress={() => navigation.navigate("Forgot Password")}
-      >
-        Forgot Password?
-      </Text>
-      <TouchableOpacity activeOpacity={0.7} onPress={login}>
-        <View style={loginStyles.loginButton}>
-          <Text style={loginStyles.loginText}>Login</Text>
-        </View>
-      </TouchableOpacity>
-      <Text style={loginStyles.unhighlightedText}>
-        Don't have an account?{" "}
         <Text
-          style={loginStyles.highlightedText}
-          onPress={() => navigation.navigate("Register")}
+          style={loginStyles.forgotPasswordText}
+          onPress={() => navigation.navigate("Forgot Password")}
         >
-          Sign up!
+          Forgot Password?
         </Text>
-      </Text>
-      <StatusBar style="light" />
-    </View>
+        <TouchableOpacity activeOpacity={0.7} onPress={login}>
+          <View style={loginStyles.loginButton}>
+            <Text style={loginStyles.loginText}>Login</Text>
+          </View>
+        </TouchableOpacity>
+        <Text style={loginStyles.unhighlightedText}>
+          Don't have an account?{" "}
+          <Text
+            style={loginStyles.highlightedText}
+            onPress={() => navigation.navigate("Register")}
+          >
+            Sign up!
+          </Text>
+        </Text>
+        <StatusBar style="light" />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
