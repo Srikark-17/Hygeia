@@ -20,8 +20,13 @@ const ChoiceScreen = ({ navigation }) => {
   useEffect(() => {
     db.collection("patients")
       .doc(user?.uid)
-      .set({ email: reduxUser?.email }, { merge: true })
-      .then(() => user.updateProfile({ displayName: reduxUser?.name }));
+      .set({ email: reduxUser?.email, uid: reduxUser?.uid }, { merge: true })
+      .then(() =>
+        user.updateProfile({
+          displayName: reduxUser?.name,
+          photoURL: reduxUser?.photourl,
+        })
+      );
   }, []);
 
   const choiceFunction = () => {

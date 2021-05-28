@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Alert,
   Image,
   StyleSheet,
   Text,
@@ -26,14 +25,22 @@ const RegisterScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const dispatch = useDispatch();
+  const user = auth.currentUser;
 
   const register = async () => {
     if (password == confirmPassword) {
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => dispatch(setUser({ name: fullName, email: email })));
+      auth.createUserWithEmailAndPassword(email, password).then(() =>
+        dispatch(
+          setUser({
+            name: fullName,
+            email: email,
+            uid: user?.uid,
+            photourl: "https://smbx-images-dev.s3.amazonaws.com/user.png",
+          })
+        )
+      );
     } else {
-      Alert.alert("Failure", "Passwords don't match!");
+      alert("Failure", "Passwords don't match!");
     }
   };
 
@@ -55,7 +62,7 @@ const RegisterScreen = ({ navigation }) => {
         );
         const googleProfileData = await auth.signInWithCredential(credential);
       } else {
-        Alert.alert(
+        alert(
           "Cancelled",
           "You have cancelled the Google Sign in",
           [{ text: "Ok" }],
@@ -63,7 +70,7 @@ const RegisterScreen = ({ navigation }) => {
         );
       }
     } catch (e) {
-      Alert.alert(e);
+      alert(e);
     }
   }
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Alert,
   Image,
   StyleSheet,
   Text,
@@ -36,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
           });
         })
         .catch(() => {
-          Alert.alert("Failure", "Could not find any records");
+          alert("Failure", "Could not find any records");
         })
     );
   };
@@ -59,7 +58,7 @@ const LoginScreen = ({ navigation }) => {
         );
         const googleProfileData = await auth.signInWithCredential(credential);
       } else {
-        Alert.alert(
+        alert(
           "Cancelled",
           "You have cancelled the Google Sign in",
           [{ text: "Ok" }],
@@ -67,7 +66,7 @@ const LoginScreen = ({ navigation }) => {
         );
       }
     } catch (e) {
-      Alert.alert(e);
+      alert(e);
     }
   }
 

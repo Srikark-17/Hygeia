@@ -13,7 +13,7 @@ const PreparationScreen = ({ navigation }) => {
       </Text>
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => navigation.navigate("Questionnaire")}
+        onPress={() => navigation.navigate("Upload Image")}
       >
         <View style={preparationStyles.button}>
           <Text style={preparationStyles.buttonText}>Continue</Text>

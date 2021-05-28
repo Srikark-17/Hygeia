@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -19,16 +18,13 @@ const sendForgotPasswordEmail = (email) => {
       auth
         .sendPasswordResetEmail(email)
         .then(() =>
-          Alert.alert(
-            "Forgot Password",
-            `The email should be at ${email} shortly!`
-          )
+          alert("Forgot Password", `The email should be at ${email} shortly!`)
         );
     } catch (error) {
-      Alert.alert("Error", error);
+      alert("Error", error);
     }
   } else {
-    Alert.alert("Forgot Email", "You forgot to enter your email!");
+    alert("Forgot Email", "You forgot to enter your email!");
   }
 };
 

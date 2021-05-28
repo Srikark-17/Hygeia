@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Alert,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -21,14 +20,10 @@ const BasicInfoScreen = () => {
   const [weight, setWeight] = useState("");
   const [gender, setGender] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [BMI, setBMI] = useState("");
+  const [allergies, setAllergies] = useState("");
   const user = auth.currentUser;
   const dispatch = useDispatch();
-
-  const DismissKeyboard = ({ children }) => (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      {children}
-    </TouchableWithoutFeedback>
-  );
 
   const submitInfo = () => {
     if (
@@ -36,24 +31,28 @@ const BasicInfoScreen = () => {
       height === "" ||
       weight === "" ||
       gender === "" ||
-      phoneNumber === ""
+      phoneNumber === "" ||
+      allergies === ""
     ) {
-      Alert.alert(
+      alert(
         "Missing Info",
         "You have not filled out some information",
         [{ text: "Ok" }],
         { cancelable: false }
       );
     } else {
+      setBMI(703 * (weight / Math.pow(height, 2)));
       db.collection("users")
         .doc(user?.uid)
         .set(
           {
-            userAge: age,
-            userHeight: height,
-            userWeight: weight,
-            userGender: gender,
-            Phone_Number: phoneNumber,
+            allergies: allergies,
+            age: age,
+            bmi: BMI,
+            gender: gender,
+            height: height,
+            phoneNumber: phoneNumber,
+            weight: weight,
           },
           { merge: true }
         )
@@ -62,7 +61,7 @@ const BasicInfoScreen = () => {
   };
 
   return (
-    <DismissKeyboard>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={basicInfoStyles.container}>
         <Text style={basicInfoStyles.title}>Basic Info</Text>
         <Text style={basicInfoStyles.subtitle}>
@@ -105,6 +104,14 @@ const BasicInfoScreen = () => {
             onChangeText={(sex) => setGender(sex)}
           />
           <TextInput
+            placeholder="Allergies"
+            style={basicInfoStyles.inputContainer}
+            placeholderTextColor={appColors.darkGray}
+            autoCorrect={false}
+            value={allergies}
+            onChangeText={(allergies) => setAllergies(allergies)}
+          />
+          <TextInput
             placeholder="Phone Number"
             style={basicInfoStyles.inputContainer}
             placeholderTextColor={appColors.darkGray}
@@ -122,7 +129,7 @@ const BasicInfoScreen = () => {
           </View>
         </TouchableOpacity>
       </View>
-    </DismissKeyboard>
+    </TouchableWithoutFeedback>
   );
 };
 
