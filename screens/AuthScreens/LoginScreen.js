@@ -25,7 +25,7 @@ const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const login = () => {
-    auth.signInWithEmailAndPassword(email, doc.data().password).then(() =>
+    auth.signInWithEmailAndPassword(email, password).then(() =>
       db
         .collection("patients")
         .where("email", "==", email)
@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
             dispatch(setRole(doc.data().userRole));
           });
         })
-        .catch((error) => {
+        .catch(() => {
           Alert.alert("Failure", "Could not find any records");
         })
     );

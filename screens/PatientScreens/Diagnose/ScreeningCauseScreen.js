@@ -9,12 +9,13 @@ import {
 import appColors from "../../../config/appColors";
 import { HP, WP } from "../../../config/responsive";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { db } from "../../../firebase";
+import { db, auth } from "../../../firebase";
 
 const ScreeningCauseScreen = ({ navigation }) => {
   const [covid, setCovid] = useState(false);
   const [lungCancer, setLungCancer] = useState(false);
   const selectedCards = [];
+  const user = auth.currentUser;
 
   const choiceFunction = () => {
     if (covid) {
@@ -25,7 +26,7 @@ const ScreeningCauseScreen = ({ navigation }) => {
     } else if (lungCancer) {
       db.collection("patients")
         .doc(user?.uid)
-        .set({ userRole: "Lung Cancer" }, { merge: true })
+        .set({ disease: "Lung Cancer" }, { merge: true })
         .then(() => navigation.navigate("Prepare"));
     }
   };
