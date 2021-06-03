@@ -53,7 +53,7 @@ const thankYouStyles = StyleSheet.create({
     color: appColors.darkGray,
     fontFamily: "Roboto_Regular",
     fontSize: HP(2),
-    width: WP(50),
+    width: WP(47),
     top: HP(7),
   },
   button: {
@@ -64,7 +64,7 @@ const thankYouStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: HP(8),
-    top: HP(25.11),
+    top: HP(20),
   },
   buttonText: {
     fontFamily: "Roboto_Bold",

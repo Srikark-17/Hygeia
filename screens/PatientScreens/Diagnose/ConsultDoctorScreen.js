@@ -47,7 +47,7 @@ const thankYouStyles = StyleSheet.create({
     color: appColors.darkGray,
     fontFamily: "Roboto_Regular",
     fontSize: HP(2),
-    width: WP(50),
+    width: WP(63),
     top: HP(7),
   },
   button: {
