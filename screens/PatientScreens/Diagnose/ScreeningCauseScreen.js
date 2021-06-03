@@ -13,43 +13,25 @@ import { db, auth } from "../../../firebase";
 import { useSelector } from "react-redux";
 
 const ScreeningCauseScreen = ({ navigation }) => {
-  const [covid, setCovid] = useState(false);
-  const [lungCancer, setLungCancer] = useState(false);
+  const [lungs, setLungs] = useState(false);
   const selectedCards = [];
   const user = auth.currentUser;
   const { doctor } = useSelector((state) => state.auth);
 
   const choiceFunction = () => {
-    if (covid) {
+    if (lungs) {
       db.collection("doctors")
         .doc(doctor.doctorUID)
         .collection("patients")
         .doc(user?.uid)
-        .set({ disease: "COVID-19" }, { merge: true })
-        .then(() => navigation.navigate("Prepare"));
-    } else if (lungCancer) {
-      db.collection("doctors")
-        .doc(doctor.doctorUID)
-        .collection("patients")
-        .doc(user?.uid)
-        .set({ disease: "Lung Cancer" }, { merge: true })
+        .set({ areaOfDisease: "Lungs" }, { merge: true })
         .then(() => navigation.navigate("Prepare"));
     }
   };
-
-  const covidToggle = () => {
+  const lungsToggle = () => {
     selectedCards.push(1);
     if (selectedCards[selectedCards.length - 1] == 1) {
-      setLungCancer(false);
-      setCovid((prev) => !prev);
-    }
-  };
-
-  const lungCancerToggle = () => {
-    selectedCards.push(2);
-    if (selectedCards[selectedCards.length - 1] == 2) {
-      setCovid(false);
-      setLungCancer((prev) => !prev);
+      setLungs((prev) => !prev);
     }
   };
 
@@ -57,49 +39,21 @@ const ScreeningCauseScreen = ({ navigation }) => {
     <View style={screeningCauseStyles.container}>
       <Text style={screeningCauseStyles.title}>Disease Selection</Text>
       <Text style={screeningCauseStyles.description}>
-        Choose why you are self-diagnosing today
+        Where do you think you have a disease?
       </Text>
       <ScrollView>
         <View style={screeningCauseStyles.cardContainer}>
-          <TouchableOpacity onPress={covidToggle}>
+          <TouchableOpacity onPress={lungsToggle}>
             <View
               style={[
-                covid
+                lungs
                   ? screeningCauseStyles.selectedCard
                   : screeningCauseStyles.individualCard,
               ]}
             >
               <FontAwesome5
                 style={[
-                  covid
-                    ? screeningCauseStyles.selectedDisease
-                    : screeningCauseStyles.disease,
-                ]}
-                name="virus"
-                size={50}
-              />
-              <Text
-                style={[
-                  covid
-                    ? screeningCauseStyles.selectedCardText
-                    : screeningCauseStyles.cardText,
-                ]}
-              >
-                COVID
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={lungCancerToggle}>
-            <View
-              style={[
-                lungCancer
-                  ? screeningCauseStyles.selectedCard
-                  : screeningCauseStyles.individualCard,
-              ]}
-            >
-              <FontAwesome5
-                style={[
-                  lungCancer
+                  lungs
                     ? screeningCauseStyles.selectedDisease
                     : screeningCauseStyles.disease,
                 ]}
@@ -109,12 +63,12 @@ const ScreeningCauseScreen = ({ navigation }) => {
               />
               <Text
                 style={[
-                  lungCancer
+                  lungs
                     ? screeningCauseStyles.selectedCardText
                     : screeningCauseStyles.cardText,
                 ]}
               >
-                Lung Cancer
+                Lungs
               </Text>
             </View>
           </TouchableOpacity>

@@ -8,12 +8,12 @@ const PreparationScreen = ({ navigation }) => {
     <View style={preparationStyles.container}>
       <Text style={preparationStyles.title}>Note</Text>
       <Text style={preparationStyles.description}>
-        Be sure to have an x-ray image of your lung on your phone. You may need
-        it!
+        You will now be asked a couple of questions regarding the area you
+        selected. Try not to leave the questionnaire after continuing
       </Text>
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => navigation.navigate("Upload Image")}
+        onPress={() => navigation.navigate("Questionnaire")}
       >
         <View style={preparationStyles.button}>
           <Text style={preparationStyles.buttonText}>Continue</Text>
@@ -45,7 +45,7 @@ const preparationStyles = StyleSheet.create({
     fontFamily: "Roboto_Regular",
     fontSize: HP(2),
     marginBottom: HP(2),
-    width: WP(63.2),
+    width: WP(65),
   },
   button: {
     width: WP(58),
@@ -55,6 +55,7 @@ const preparationStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: HP(2),
+    top: HP(5),
   },
   buttonText: {
     fontFamily: "Roboto_Bold",
@@ -66,5 +67,6 @@ const preparationStyles = StyleSheet.create({
     fontFamily: "Roboto_Regular",
     color: appColors.secondary,
     textAlign: "center",
+    top: HP(5),
   },
 });

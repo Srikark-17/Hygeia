@@ -13,6 +13,7 @@ const Preliminary = createStackNavigator();
 
 const DiagnoseNavigator = () => {
   const { doctor } = useSelector((state) => state.auth);
+
   if (doctor) {
     return (
       <Diagnose.Navigator
