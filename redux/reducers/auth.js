@@ -6,6 +6,8 @@ import {
   REMOVE_ROLE,
   SET_USER,
   REMOVE_USER,
+  SET_DOCTOR,
+  REMOVE_DOCTOR,
 } from "../actions/types";
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
   errMsg: null,
   reduxUser: "",
   userRole: "No Role",
+  doctor: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -91,6 +94,16 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         reduxUser: "",
+      };
+    case SET_DOCTOR:
+      return {
+        ...state,
+        doctor: action.payload,
+      };
+    case REMOVE_DOCTOR:
+      return {
+        ...state,
+        doctor: false,
       };
     default:
       return state;

@@ -10,21 +10,27 @@ import appColors from "../../../config/appColors";
 import { HP, WP } from "../../../config/responsive";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { db, auth } from "../../../firebase";
+import { useSelector } from "react-redux";
 
 const ScreeningCauseScreen = ({ navigation }) => {
   const [covid, setCovid] = useState(false);
   const [lungCancer, setLungCancer] = useState(false);
   const selectedCards = [];
   const user = auth.currentUser;
+  const { doctor } = useSelector((state) => state.auth);
 
   const choiceFunction = () => {
     if (covid) {
-      db.collection("patients")
+      db.collection("doctors")
+        .doc(doctor.doctorUID)
+        .collection("patients")
         .doc(user?.uid)
         .set({ disease: "COVID-19" }, { merge: true })
         .then(() => navigation.navigate("Prepare"));
     } else if (lungCancer) {
-      db.collection("patients")
+      db.collection("doctors")
+        .doc(doctor.doctorUID)
+        .collection("patients")
         .doc(user?.uid)
         .set({ disease: "Lung Cancer" }, { merge: true })
         .then(() => navigation.navigate("Prepare"));

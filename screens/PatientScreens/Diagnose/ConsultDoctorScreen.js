@@ -1,21 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 import appColors from "../../../config/appColors";
 import { HP, WP } from "../../../config/responsive";
 
 const ThankYouScreen = ({ navigation }) => {
   return (
     <View style={thankYouStyles.container}>
-      <FontAwesome
-        name="check-circle"
-        size={HP(9)}
-        color={appColors.secondary}
-        style={thankYouStyles.icon}
-      />
-      <Text style={thankYouStyles.title}>Thank you!</Text>
+      <Text style={thankYouStyles.title}>Consult a doctor</Text>
       <Text style={thankYouStyles.description}>
-        All of your answers have been submitted to your doctor
+        We urge that you call your doctor immediately to schedule an
+        appointment.
       </Text>
       <TouchableOpacity
         activeOpacity={0.7}

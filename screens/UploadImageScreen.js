@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import appColors from "../../../config/appColors";
-import { HP, WP } from "../../../config/responsive";
+import appColors from "../config/appColors";
+import { HP, WP } from "../config/responsive";
 import * as ImagePicker from "expo-image-picker";
-import { db } from "../../../firebase";
+import { db } from "../firebase";
 
 const UploadImageScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);

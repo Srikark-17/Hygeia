@@ -5,6 +5,8 @@ import {
   REMOVE_ROLE,
   SET_USER,
   REMOVE_USER,
+  REMOVE_DOCTOR,
+  SET_DOCTOR,
 } from "./types";
 
 //Local Types
@@ -38,4 +40,22 @@ const removeUser = () => ({
   type: REMOVE_USER,
 });
 
-export { setInfo, removeInfo, setRole, removeRole, setUser, removeUser };
+const setDoctor = (res) => ({
+  type: SET_DOCTOR,
+  payload: res,
+});
+
+const removeDoctor = () => ({
+  type: REMOVE_DOCTOR,
+});
+
+export {
+  setInfo,
+  removeInfo,
+  setRole,
+  removeRole,
+  setUser,
+  removeUser,
+  setDoctor,
+  removeDoctor,
+};

@@ -25,7 +25,6 @@ const RegisterScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const dispatch = useDispatch();
-  const user = auth.currentUser;
 
   const register = async () => {
     if (password == confirmPassword) {
@@ -34,7 +33,6 @@ const RegisterScreen = ({ navigation }) => {
           setUser({
             name: fullName,
             email: email,
-            uid: user?.uid,
             photourl: "https://smbx-images-dev.s3.amazonaws.com/user.png",
           })
         )

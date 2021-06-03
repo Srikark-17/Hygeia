@@ -15,12 +15,11 @@ import { useDispatch } from "react-redux";
 import { setInfo } from "../../redux/actions/auth";
 
 const BasicInfoScreen = () => {
-  const [age, setAge] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const [age, setAge] = useState(null);
+  const [height, setHeight] = useState(null);
+  const [weight, setWeight] = useState(null);
   const [gender, setGender] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [BMI, setBMI] = useState("");
   const [allergies, setAllergies] = useState("");
   const user = auth.currentUser;
   const dispatch = useDispatch();
@@ -41,14 +40,15 @@ const BasicInfoScreen = () => {
         { cancelable: false }
       );
     } else {
-      setBMI(703 * (weight / Math.pow(height, 2)));
-      db.collection("users")
-        .doc(user?.uid)
+      const BMI = 703 * (weight / Math.pow(height, 2));
+      const roundedBMI = Math.round(100 * BMI) / 100;
+      db.collection("patients")
+        .doc(user.uid)
         .set(
           {
             allergies: allergies,
             age: age,
-            bmi: BMI,
+            bmi: roundedBMI,
             gender: gender,
             height: height,
             phoneNumber: phoneNumber,
@@ -162,8 +162,8 @@ const basicInfoStyles = StyleSheet.create({
     marginBottom: HP(5.7),
   },
   inputContainer: {
-    width: WP(70.6),
-    height: HP(6.25),
+    width: WP(75),
+    height: HP(5.75),
     borderRadius: 12,
     paddingVertical: HP(1.12),
     backgroundColor: appColors.primary,
@@ -172,12 +172,14 @@ const basicInfoStyles = StyleSheet.create({
     fontSize: HP(2),
   },
   continueButton: {
-    width: WP(75.6),
-    height: HP(6.25),
-    borderRadius: 12,
     backgroundColor: appColors.secondary,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 12,
+    width: WP(70.6),
+    height: HP(6.25),
+    marginVertical: HP(2.23),
+    marginBottom: HP(4),
   },
   continueButtonText: {
     fontFamily: "Roboto_Bold",

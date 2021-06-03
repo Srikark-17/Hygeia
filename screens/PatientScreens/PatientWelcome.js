@@ -4,14 +4,12 @@ import { HP, WP } from "../../config/responsive";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Svg from "../../assets/SVG/Buildings";
 import { StatusBar } from "expo-status-bar";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 
 const PatientWelcome = ({ navigation }) => {
   return (
     <View style={welcomeStyles.container}>
-      <Text style={welcomeStyles.title} onPress={() => auth.signOut()}>
-        Hello!
-      </Text>
+      <Text style={welcomeStyles.title}>Hello!</Text>
       <Svg />
       <Text style={welcomeStyles.description}>
         Hygeia makes self-diagnosing simple and efficient! Choose an option to
@@ -20,7 +18,9 @@ const PatientWelcome = ({ navigation }) => {
       <View style={welcomeStyles.buttonContainer}>
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => navigation.navigate("  ")}
+          onPress={() => {
+            navigation.navigate("  ");
+          }}
         >
           <View style={welcomeStyles.button}>
             <Text style={welcomeStyles.buttonText}>Diagnose Myself</Text>
