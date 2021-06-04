@@ -20,7 +20,7 @@ const initialState = {
   isError: false,
   isSuccess: false,
   errMsg: null,
-  reduxUser: "",
+  reduxUser: null,
   userRole: "No Role",
   doctor: false,
 };

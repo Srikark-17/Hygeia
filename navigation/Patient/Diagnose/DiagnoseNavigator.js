@@ -6,6 +6,7 @@ import QuestionnaireScreen from "../../../screens/PatientScreens/Diagnose/Questi
 import ConsultDoctorScreen from "../../../screens/PatientScreens/Diagnose/ConsultDoctorScreen";
 import ThankYouScreen from "../../../screens/PatientScreens/Diagnose/ThankYouScreen";
 import SetDoctorScreen from "../../../screens/PatientScreens/SetDoctorScreen";
+import WelcomeScreen from "../../../screens/PatientScreens/PatientWelcome";
 import { useSelector } from "react-redux";
 
 const Diagnose = createStackNavigator();
@@ -30,6 +31,7 @@ const DiagnoseNavigator = () => {
         <Diagnose.Screen name="Questionnaire" component={QuestionnaireScreen} />
         <Diagnose.Screen name="Consult" component={ConsultDoctorScreen} />
         <Diagnose.Screen name="Thank You" component={ThankYouScreen} />
+        <Diagnose.Screen name="Welcome" component={WelcomeScreen} />
       </Diagnose.Navigator>
     );
   } else {

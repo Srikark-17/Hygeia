@@ -19,18 +19,10 @@ const ChoiceScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (user && reduxUser) {
-      db.collection("patients")
-        .doc(user?.uid)
-        ?.set(
-          { email: reduxUser?.email, uid: user?.uid, name: reduxUser?.name },
-          { merge: true }
-        )
-        .then(() =>
-          user.updateProfile({
-            displayName: reduxUser?.name,
-            photoURL: reduxUser?.photourl,
-          })
-        );
+      user.updateProfile({
+        displayName: reduxUser?.name,
+        photoURL: reduxUser?.photourl,
+      });
     }
   }, []);
 
@@ -38,13 +30,33 @@ const ChoiceScreen = ({ navigation }) => {
     if (patientToggled) {
       db.collection("patients")
         .doc(user?.uid)
-        .set({ userRole: "Patient" }, { merge: true });
+        .set({ userRole: "Patient" }, { merge: true })
+        .then(() => {
+          db.collection("patients").doc(user?.uid)?.set(
+            {
+              email: reduxUser?.email,
+              uid: user?.uid,
+              name: reduxUser?.name,
+            },
+            { merge: true }
+          );
+        });
       dispatch(setRole("Patient"));
       navigation.navigate("BasicInfo");
     } else if (doctorToggled) {
       db.collection("doctors")
         .doc(user?.uid)
-        .set({ userRole: "Doctor" }, { merge: true });
+        .set({ userRole: "Doctor" }, { merge: true })
+        .then(() => {
+          db.collection("doctors").doc(user?.uid)?.set(
+            {
+              email: reduxUser?.email,
+              uid: user?.uid,
+              name: reduxUser?.name,
+            },
+            { merge: true }
+          );
+        });
       dispatch(setRole("Doctor"));
     }
   };

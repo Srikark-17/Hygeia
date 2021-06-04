@@ -19,7 +19,7 @@ const ThankYouScreen = ({ navigation }) => {
       </Text>
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => navigation.navigate(" ")}
+        onPress={() => navigation.navigate("Welcome")}
       >
         <View style={thankYouStyles.button}>
           <Text style={thankYouStyles.buttonText}>Go to Home</Text>

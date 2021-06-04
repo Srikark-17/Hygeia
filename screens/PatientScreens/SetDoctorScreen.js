@@ -7,11 +7,12 @@ import { auth, db } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { setDoctor } from "../../redux/actions/auth";
 
-const SetDoctorScreen = () => {
+const SetDoctorScreen = ({ route }) => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const docArray = [];
   const [doctors, setDoctors] = useState();
   const dispatch = useDispatch();
+  const { prev_screen } = route.params;
 
   // Renders doctors
   const doctorNames = doctors?.map(function (doc) {
@@ -47,51 +48,67 @@ const SetDoctorScreen = () => {
         return true;
       }
     });
-    db.collection("patients")
-      .doc(user.uid)
-      .set({ doctor: selectedDoctor }, { merge: true })
-      .then(() =>
-        dispatch(
-          setDoctor({
-            doctorName: doctorInfo.docName,
-            doctorUID: doctorInfo.docUid,
-          })
-        )
-      );
-    db.collection("patients")
-      .doc(user.uid)
-      .get()
-      .then((doc) => {
-        const age = doc.data().age;
-        const allergies = doc.data().allergies;
-        const bmi = doc.data().bmi;
-        const email = doc.data().email;
-        const gender = doc.data().gender;
-        const height = doc.data().height;
-        const name = doc.data().name;
-        const phoneNumber = doc.data().phoneNumber;
-        const uid = doc.data().uid;
-        const weight = doc.data().weight;
-        db.collection("doctors")
-          .doc(doctorInfo.docUid)
-          .collection("patients")
-          .doc(user.uid)
-          .set(
-            {
-              age: age,
-              allergies: allergies,
-              bmi: bmi,
-              email: email,
-              gender: gender,
-              height: height,
-              name: name,
-              phoneNumber: phoneNumber,
-              uid: uid,
-              weight: weight,
-            },
-            { merge: true }
-          );
-      });
+    {
+      prev_screen == "Profile"
+        ? db
+            .collection("patients")
+            .doc(user.uid)
+            .set({ doctor: selectedDoctor }, { merge: true })
+            .then(() =>
+              dispatch(
+                setDoctor({
+                  doctorName: doctorInfo.docName,
+                  doctorUID: doctorInfo.docUid,
+                })
+              )
+            )
+        : db
+            .collection("patients")
+            .doc(user.uid)
+            .set({ doctor: selectedDoctor }, { merge: true })
+            .then(() =>
+              dispatch(
+                setDoctor({
+                  doctorName: doctorInfo.docName,
+                  doctorUID: doctorInfo.docUid,
+                })
+              )
+            );
+      db.collection("patients")
+        .doc(user.uid)
+        .get()
+        .then((doc) => {
+          const age = doc.data().age;
+          const allergies = doc.data().allergies;
+          const bmi = doc.data().bmi;
+          const email = doc.data().email;
+          const gender = doc.data().gender;
+          const height = doc.data().height;
+          const name = doc.data().name;
+          const phoneNumber = doc.data().phoneNumber;
+          const uid = doc.data().uid;
+          const weight = doc.data().weight;
+          db.collection("doctors")
+            .doc(doctorInfo.docUid)
+            .collection("patients")
+            .doc(user.uid)
+            .set(
+              {
+                age: age,
+                allergies: allergies,
+                bmi: bmi,
+                email: email,
+                gender: gender,
+                height: height,
+                name: name,
+                phoneNumber: phoneNumber,
+                uid: uid,
+                weight: weight,
+              },
+              { merge: true }
+            );
+        });
+    }
   };
 
   return (

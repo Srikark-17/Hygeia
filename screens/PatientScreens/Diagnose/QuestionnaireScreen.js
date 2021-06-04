@@ -64,7 +64,7 @@ const QuestionnaireScreen = ({ navigation }) => {
       <Text style={questionnaireStyles.description}>
         Fill out the questions below!
       </Text>
-      <ScrollView>
+      <ScrollView indicatorStyle="white">
         <View style={questionnaireStyles.form}>
           <View style={questionnaireStyles.question}>
             <Text style={questionnaireStyles.questionText}>
@@ -220,7 +220,8 @@ const QuestionnaireScreen = ({ navigation }) => {
           </View>
           <View style={questionnaireStyles.question}>
             <Text style={questionnaireStyles.questionText}>
-              Have you experience any COVID like symptoms?
+              Have you experience any COVID-like symptoms (Fever, Cough,
+              Fatigue, Body aches, Nausea, etc.)?
             </Text>
             <RadioButtonRN
               data={data}
