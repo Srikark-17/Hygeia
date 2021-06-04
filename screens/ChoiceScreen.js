@@ -21,7 +21,10 @@ const ChoiceScreen = ({ navigation }) => {
     if (user && reduxUser) {
       db.collection("patients")
         .doc(user?.uid)
-        ?.set({ email: reduxUser?.email, uid: user?.uid }, { merge: true })
+        ?.set(
+          { email: reduxUser?.email, uid: user?.uid, name: reduxUser?.name },
+          { merge: true }
+        )
         .then(() =>
           user.updateProfile({
             displayName: reduxUser?.name,

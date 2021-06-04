@@ -21,6 +21,7 @@ const QuestionnaireScreen = ({ navigation }) => {
   const [bonePain, setBonePain] = useState();
   const [headaches, setHeadaches] = useState();
   const [dysphonia, setDysphonia] = useState();
+  const [covid, setCovid] = useState();
   const { doctor } = useSelector((state) => state.auth);
   const user = auth.currentUser;
 
@@ -40,16 +41,20 @@ const QuestionnaireScreen = ({ navigation }) => {
       .doc(doctor.doctorUID)
       .collection("patients")
       .doc(user.uid)
-      .set({
-        newCough: newCough,
-        bloodCough: bloodCough,
-        shortBreath: shortBreath,
-        chestPain: chestPain,
-        noTryWeightLoss: noTryWeightLoss,
-        bonePain: bonePain,
-        headaches: headaches,
-        dysphonia: dysphonia,
-      })
+      .set(
+        {
+          newCough: newCough,
+          bloodCough: bloodCough,
+          shortBreath: shortBreath,
+          chestPain: chestPain,
+          noTryWeightLoss: noTryWeightLoss,
+          bonePain: bonePain,
+          headaches: headaches,
+          dysphonia: dysphonia,
+          covid: covid,
+        },
+        { merge: true }
+      )
       .then(() => navigation.navigate("Thank You"));
   };
 
@@ -201,6 +206,25 @@ const QuestionnaireScreen = ({ navigation }) => {
             <RadioButtonRN
               data={data}
               selectedBtn={(choice) => setDysphonia(choice.label)}
+              boxActiveBgColor={appColors.backgroundColor}
+              boxDeactiveBgColor={appColors.backgroundColor}
+              box={false}
+              activeColor={appColors.secondary}
+              animationTypes={["pulse"]}
+              textStyle={{
+                color: appColors.primary,
+                fontFamily: "Roboto_Regular",
+                fontSize: HP(2),
+              }}
+            />
+          </View>
+          <View style={questionnaireStyles.question}>
+            <Text style={questionnaireStyles.questionText}>
+              Have you experience any COVID like symptoms?
+            </Text>
+            <RadioButtonRN
+              data={data}
+              selectedBtn={(choice) => setCovid(choice.label)}
               boxActiveBgColor={appColors.backgroundColor}
               boxDeactiveBgColor={appColors.backgroundColor}
               box={false}

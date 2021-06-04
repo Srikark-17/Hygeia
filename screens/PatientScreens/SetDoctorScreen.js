@@ -68,6 +68,7 @@ const SetDoctorScreen = () => {
         const email = doc.data().email;
         const gender = doc.data().gender;
         const height = doc.data().height;
+        const name = doc.data().name;
         const phoneNumber = doc.data().phoneNumber;
         const uid = doc.data().uid;
         const weight = doc.data().weight;
@@ -83,6 +84,7 @@ const SetDoctorScreen = () => {
               email: email,
               gender: gender,
               height: height,
+              name: name,
               phoneNumber: phoneNumber,
               uid: uid,
               weight: weight,
