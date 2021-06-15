@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
 import appColors from "../../../config/appColors";
 import { HP, WP } from "../../../config/responsive";
 import { auth, db } from "../../../firebase";
 
 const ThankYouScreen = ({ navigation }) => {
   const user = auth.currentUser;
+  const { doctor } = useSelector((state) => state.auth);
   const [docEmail, setDocEmail] = useState();
   useEffect(() => {
     db.collection("patients")
       .doc(user.uid)
       .get()
-      .then((doc) => {
-        const docName = doc.data().doctor;
+      .then(() => {
         db.collection("doctors")
-          .where("name", "==", docName)
+          .where("name", "==", doctor.docName)
           .get()
           .then((doc) => setDocEmail(doc.data().email));
       });
