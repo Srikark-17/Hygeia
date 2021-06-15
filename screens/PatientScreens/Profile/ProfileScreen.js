@@ -63,17 +63,21 @@ const ProfileScreen = ({ navigation }) => {
       </View>
       <View>
         <View style={profileStyles.profileSection}>
-          <View style={profileStyles.leftProfileSection}>
-            <FontAwesome5
-              name="stethoscope"
-              size={26}
-              style={profileStyles.icon}
-              onPress={() =>
-                navigation.navigate("Set Doctor", { prev_screen: "Profile" })
-              }
-            />
-            <Text style={profileStyles.profileSectionText}>Change Doctor</Text>
-          </View>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate("ChangeDoctor")}
+          >
+            <View style={profileStyles.leftProfileSection}>
+              <FontAwesome5
+                name="stethoscope"
+                size={26}
+                style={profileStyles.icon}
+              />
+              <Text style={profileStyles.profileSectionText}>
+                Change Doctor
+              </Text>
+            </View>
+          </TouchableOpacity>
           <MaterialIcons
             name="keyboard-arrow-right"
             size={26}
@@ -140,7 +144,7 @@ const ProfileScreen = ({ navigation }) => {
           <TouchableOpacity activeOpacity={0.7} onPress={logout}>
             <View style={profileStyles.leftProfileSection}>
               <AntDesign name="logout" size={23} style={profileStyles.icon} />
-              <Text style={profileStyles.profileSectionText}>Log out</Text>
+              <Text style={profileStyles.logoutText}>Log out</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -216,6 +220,12 @@ const profileStyles = StyleSheet.create({
     fontSize: HP(1.9),
     marginLeft: WP(4.83),
     color: appColors.primary,
+  },
+  logoutText: {
+    fontFamily: "Roboto_Regular",
+    fontSize: HP(1.9),
+    marginLeft: WP(4.83),
+    color: appColors.secondary,
   },
   arrowIcon: {
     color: appColors.darkGray,

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import appColors from "../../config/appColors";
-import { HP, WP } from "../../config/responsive";
-import { auth, db } from "../../firebase";
+import appColors from "../../../config/appColors";
+import { HP, WP } from "../../../config/responsive";
+import { auth, db } from "../../../firebase";
 import { useDispatch } from "react-redux";
-import { setDoctor } from "../../redux/actions/auth";
-import { StatusBar } from "expo-status-bar";
+import { setDoctor } from "../../../redux/actions/auth";
 
-const SetDoctorScreen = () => {
+const ChangeDoctorScreen = () => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const docArray = [];
   const [doctors, setDoctors] = useState();
@@ -40,7 +39,7 @@ const SetDoctorScreen = () => {
       });
   }, []);
 
-  // Sets doctor and pushes current patient's data to doctor's subcollection
+  // Delete the patient's data in the prev doc's subcollection, set the new doctor in Firestore and Redux, paste all data into the new doctor's subcollection
   const handleSubmit = () => {
     const user = auth.currentUser;
     const doctorInfo = doctors.find(function (doctor, index) {
@@ -48,6 +47,11 @@ const SetDoctorScreen = () => {
         return true;
       }
     });
+    db.collection("doctors")
+      .doc(doctor.docUid)
+      .collection("patients")
+      .doc(user.uid)
+      .delete();
     db.collection("patients")
       .doc(user.uid)
       .set({ doctor: selectedDoctor }, { merge: true })
@@ -96,9 +100,9 @@ const SetDoctorScreen = () => {
   };
 
   return (
-    <View style={setDoctorStyles.container}>
-      <Text style={setDoctorStyles.title}>Set Doctor</Text>
-      <Text style={setDoctorStyles.description}>Select your doctor!</Text>
+    <View style={changeDoctorStyles.container}>
+      <Text style={changeDoctorStyles.title}>Change Doctor</Text>
+      <Text style={changeDoctorStyles.description}>Select your doctor!</Text>
       <Picker
         selectedValue={selectedDoctor}
         onValueChange={(doctor) => setSelectedDoctor(doctor)}
@@ -107,18 +111,17 @@ const SetDoctorScreen = () => {
         {doctorNames}
       </Picker>
       <TouchableOpacity activeOpacity={0.7} onPress={handleSubmit}>
-        <View style={setDoctorStyles.button}>
-          <Text style={setDoctorStyles.buttonText}>Continue</Text>
+        <View style={changeDoctorStyles.button}>
+          <Text style={changeDoctorStyles.buttonText}>Continue</Text>
         </View>
       </TouchableOpacity>
-      <StatusBar style="light" />
     </View>
   );
 };
 
-export default SetDoctorScreen;
+export default ChangeDoctorScreen;
 
-const setDoctorStyles = StyleSheet.create({
+const changeDoctorStyles = StyleSheet.create({
   container: {
     backgroundColor: appColors.backgroundColor,
     paddingTop: HP(9.82),

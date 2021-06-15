@@ -4,7 +4,6 @@ import { HP, WP } from "../../config/responsive";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Svg from "../../assets/SVG/Buildings";
 import { StatusBar } from "expo-status-bar";
-import { auth, db } from "../../firebase";
 
 const PatientWelcome = ({ navigation }) => {
   return (

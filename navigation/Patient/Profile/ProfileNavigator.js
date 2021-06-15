@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import SetDoctorScreen from "../../../screens/PatientScreens/SetDoctorScreen";
+import ChangeDoctorScreen from "../../../screens/PatientScreens/Profile/ChangeDoctorScreen";
 import ProfileScreen from "../../../screens/PatientScreens/Profile/ProfileScreen";
 
 const Profile = createStackNavigator();
@@ -13,7 +13,7 @@ const ProfileNavigator = () => {
       }}
     >
       <Profile.Screen name="Profile" component={ProfileScreen} />
-      <Profile.Screen name="Set Doctor" component={SetDoctorScreen} />
+      <Profile.Screen name="ChangeDoctor" component={ChangeDoctorScreen} />
     </Profile.Navigator>
   );
 };

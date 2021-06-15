@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import appColors from "../../config/appColors";
 import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import DiagnoseNavigator from "./Diagnose/DiagnoseNavigator";
-import ProfileScreen from "../../screens/PatientScreens/Profile/ProfileScreen";
+import ProfileNavigator from "./Profile/ProfileNavigator";
 
 const Info = createStackNavigator();
 const PatientTab = createBottomTabNavigator();
@@ -61,7 +61,7 @@ const PatientNavigator = () => {
           />
           <PatientTab.Screen
             name="   "
-            component={ProfileScreen}
+            component={ProfileNavigator}
             options={{
               tabBarIcon: ({ focused }) => (
                 <Ionicons
