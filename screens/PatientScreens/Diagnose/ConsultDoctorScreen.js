@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import appColors from "../../../config/appColors";
 import { HP, WP } from "../../../config/responsive";
+import { auth, db } from "../../../firebase";
 
 const ThankYouScreen = ({ navigation }) => {
+  const user = auth.currentUser;
+  const [docEmail, setDocEmail] = useState();
+  useEffect(() => {
+    db.collection("patients")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        const docName = doc.data().doctor;
+        db.collection("doctors")
+          .where("name", "==", docName)
+          .get()
+          .then((doc) => setDocEmail(doc.data().email));
+      });
+  }, []);
   return (
     <View style={thankYouStyles.container}>
       <Text style={thankYouStyles.title}>Consult a doctor</Text>
       <Text style={thankYouStyles.description}>
         We urge that you call your doctor immediately to schedule an
-        appointment.
+        appointment. You could also email your doctor at {docEmail}.
       </Text>
       <TouchableOpacity
         activeOpacity={0.7}
