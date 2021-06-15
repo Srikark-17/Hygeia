@@ -15,29 +15,47 @@ import * as Google from "expo-google-app-auth";
 import * as firebase from "firebase";
 import { StatusBar } from "expo-status-bar";
 import { HP, WP } from "../../config/responsive";
-import { setRole } from "../../redux/actions/auth";
+import { setDoctor, setRole } from "../../redux/actions/auth";
 import { useDispatch } from "react-redux";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const user = auth.currentUser;
 
   const login = () => {
-    auth.signInWithEmailAndPassword(email, password).then(() =>
-      db
-        .collection("patients")
-        .where("email", "==", email)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            dispatch(setRole(doc.data().userRole));
-          });
-        })
-        .catch(() => {
-          alert("Failure", "Could not find any records");
-        })
-    );
+    auth.signInWithEmailAndPassword(email, password).then(() => {
+      const userPatientRef = db.collection("patients").doc(user.uid);
+      userPatientRef.get().then((doc) => {
+        if (doc.exists) {
+          db.collection("patients")
+            .doc(user.uid)
+            .get()
+            .then((doc) => {
+              if (doc.data().doctor) {
+                db.collection("doctors")
+                  .where("name", "==", doc.data().doctor)
+                  .get()
+                  .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                      dispatch(
+                        setDoctor({
+                          doctorName: doc.data().name,
+                          doctorUID: doc.data().uid,
+                        })
+                      );
+                    });
+                  });
+                dispatch(setRole(doc.data().userRole));
+              }
+            })
+            .catch(() => {
+              alert("Failure", "Could not find any records");
+            });
+        }
+      });
+    });
   };
 
   async function signInWithGoogleAsync() {
