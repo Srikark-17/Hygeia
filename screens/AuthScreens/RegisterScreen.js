@@ -28,7 +28,8 @@ const RegisterScreen = ({ navigation }) => {
 
   const register = async () => {
     if (password == confirmPassword) {
-      auth.createUserWithEmailAndPassword(email, password).then(() =>
+      auth.createUserWithEmailAndPassword(email, password).then(
+        (userCredential) => userCredential.user.sendEmailVerification(),
         dispatch(
           setUser({
             name: fullName,

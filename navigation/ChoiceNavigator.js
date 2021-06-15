@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import ChoiceScreen from "../screens/ChoiceScreen";
-import BasicInfoScreen from "../screens/PatientScreens/BasicInfoScreen";
+import EmailVerificationScreen from "../screens/AuthScreens/EmailVerificationScreen";
 
 const Choice = createStackNavigator();
 
@@ -14,8 +14,11 @@ const ChoiceNavigator = () => {
           headerShown: false,
         }}
       >
-        <Choice.Screen name="Choice_Screen" component={ChoiceScreen} />
-        <Choice.Screen name="BasicInfo" component={BasicInfoScreen} />
+        <Choice.Screen
+          name="Email Verification"
+          component={EmailVerificationScreen}
+        />
+        <Choice.Screen name="Choice Screen" component={ChoiceScreen} />
       </Choice.Navigator>
     </NavigationContainer>
   );
