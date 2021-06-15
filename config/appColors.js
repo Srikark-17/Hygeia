@@ -5,4 +5,5 @@ export default {
   lightGray: "#CECECE",
   darkGray: "#A8A8A8",
   black: "#000000",
+  inactiveTab: "#8E8E8E",
 };

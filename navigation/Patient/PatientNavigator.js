@@ -12,7 +12,7 @@ import ProfileNavigator from "./Profile/ProfileNavigator";
 
 const Info = createStackNavigator();
 const PatientTab = createBottomTabNavigator();
-const inactiveColor = "#8E8E8E";
+const inactiveColor = appColors.inactiveTab;
 const tabcolor = appColors.primary;
 
 const PatientNavigator = () => {

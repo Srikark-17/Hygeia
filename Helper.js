@@ -9,6 +9,7 @@ import PatientNavigator from "./navigation/Patient/PatientNavigator";
 import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { persister, store } from "./redux/store";
+import DoctorNavigator from "./navigation/Doctor/DoctorNavigator";
 
 const customFonts = {
   JosefinSans_Regular: require("./assets/fonts/Josefin_Sans/static/JosefinSans-Regular.ttf"),
@@ -70,6 +71,12 @@ const Helper = () => {
         </PersistGate>
       </Provider>
     );
+  } else if (user && userRole == "Doctor") {
+    <Provider store={store}>
+      <PersistGate persistor={persister}>
+        <DoctorNavigator />
+      </PersistGate>
+    </Provider>;
   }
 };
 
