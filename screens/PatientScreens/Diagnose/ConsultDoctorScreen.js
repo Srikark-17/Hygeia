@@ -15,7 +15,7 @@ const ThankYouScreen = ({ navigation }) => {
       .get()
       .then(() => {
         db.collection("doctors")
-          .where("name", "==", doctor.docName)
+          .where("name", "==", doctor.doctorName)
           .get()
           .then((doc) => setDocEmail(doc.data().email));
       });
