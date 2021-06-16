@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import appColors from "../../config/appColors";
 import { Entypo, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import DoctorWelcomeScreen from "../../screens/DoctorScreens/DoctorWelcomeScreen";
+import DoctorPatientNavigator from "./Patient/DoctorPatientNavigator";
+import ProfileNavigator from "./Profile/ProfileNavigator";
 
 const DoctorTab = createBottomTabNavigator();
 const inactiveColor = appColors.inactiveTab;
@@ -39,7 +41,7 @@ const DoctorNavigator = () => {
         />
         <DoctorTab.Screen
           name="  "
-          component={DoctorWelcomeScreen}
+          component={DoctorPatientNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
               <FontAwesome5
@@ -52,7 +54,7 @@ const DoctorNavigator = () => {
         />
         <DoctorTab.Screen
           name="   "
-          component={DoctorWelcomeScreen}
+          component={ProfileNavigator}
           options={{
             tabBarIcon: ({ focused }) => (
               <Ionicons
