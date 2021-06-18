@@ -11,16 +11,22 @@ const DoctorWelcomeScreen = ({ navigation }) => {
       <Text style={welcomeStyles.title}>Hello!</Text>
       <Svg />
       <Text style={welcomeStyles.description}>
-        Hygeia makes diagnosing your patient simple and efficient! Choose an
+        Hygeia makes diagnosing your patients simple and efficient! Choose an
         option to get started.
       </Text>
       <View style={welcomeStyles.buttonContainer}>
-        <TouchableOpacity activeOpacity={0.7}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("  ")}
+        >
           <View style={welcomeStyles.button}>
             <Text style={welcomeStyles.buttonText}>View Patients</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.7}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("   ")}
+        >
           <View style={welcomeStyles.button}>
             <Text style={welcomeStyles.buttonText}>Analyze a Scan</Text>
           </View>

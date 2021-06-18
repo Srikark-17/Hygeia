@@ -1,8 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { HP, WP } from "../../config/responsive";
 import appColors from "../../config/appColors";
 import { auth } from "../../firebase";
+import { StatusBar } from "expo-status-bar";
 
 const EmailVerificationScreen = () => {
   return (
@@ -27,6 +28,7 @@ const EmailVerificationScreen = () => {
           <Text style={emailVerificationStyles.buttonText}>Continue</Text>
         </View>
       </TouchableOpacity>
+      <StatusBar style="light" />
     </View>
   );
 };

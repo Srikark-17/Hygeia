@@ -63,7 +63,7 @@ const Helper = () => {
         </PersistGate>
       </Provider>
     );
-  } else if (user && userRole == "Patient" && basicInfo == true) {
+  } else if (user && userRole == "Patient") {
     return (
       <Provider store={store}>
         <PersistGate persistor={persister}>
@@ -72,11 +72,13 @@ const Helper = () => {
       </Provider>
     );
   } else if (user && userRole == "Doctor") {
-    <Provider store={store}>
-      <PersistGate persistor={persister}>
-        <DoctorNavigator />
-      </PersistGate>
-    </Provider>;
+    return (
+      <Provider store={store}>
+        <PersistGate persistor={persister}>
+          <DoctorNavigator />
+        </PersistGate>
+      </Provider>
+    );
   }
 };
 
