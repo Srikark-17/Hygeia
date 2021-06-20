@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
             .then((doc) => {
               if (doc.data().doctor) {
                 db.collection("doctors")
-                  .where("name", "==", doc.data().doctor)
+                  .where("uid", "==", doc.data().doctor.doctorUID)
                   .get()
                   .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {

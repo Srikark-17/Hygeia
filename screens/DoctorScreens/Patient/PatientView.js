@@ -29,6 +29,7 @@ const PatientView = ({ navigation }) => {
             phoneNumber: patient.phoneNumber,
             weight: patient.weight,
             height: patient.height,
+            uid: patient.uid,
           })
         }
       />
@@ -37,7 +38,7 @@ const PatientView = ({ navigation }) => {
 
   useEffect(() => {
     db.collection("doctors")
-      .doc("b7WTAXf6bEm27YWUXzep")
+      .doc("b7WTAXf6bEm27YWUXzep") // TODO:Replace this with user.uid when testing
       .collection("patients")
       .get()
       .then((querySnapshot) => {
@@ -50,6 +51,7 @@ const PatientView = ({ navigation }) => {
             bmi: doc.data().bmi,
             gender: doc.data().gender,
             phoneNumber: doc.data().phoneNumber,
+            uid: doc.data().uid,
           });
         });
       })

@@ -50,7 +50,15 @@ const SetDoctorScreen = () => {
     });
     db.collection("patients")
       .doc(user.uid)
-      .set({ doctor: selectedDoctor }, { merge: true })
+      .set(
+        {
+          doctor: {
+            doctorName: doctorInfo.docName,
+            doctorUID: doctorInfo.docUid,
+          },
+        },
+        { merge: true }
+      )
       .then(() =>
         dispatch(
           setDoctor({

@@ -126,8 +126,6 @@ const styles = StyleSheet.create({
   },
   highlightedText: {
     color: appColors.secondary,
-    fontSize: HP(1.67),
-    fontFamily: "Roboto_Regular",
   },
   redirect: {
     color: appColors.secondary,

@@ -21,6 +21,7 @@ const DoctorNavigator = () => {
         tabBarOptions={{
           activeTintColor: appColors.primary,
           inactiveTintColor: inactiveColor,
+          showLabel: false,
           style: {
             backgroundColor: appColors.backgroundColor,
           },

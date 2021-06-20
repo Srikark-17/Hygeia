@@ -28,6 +28,7 @@ const PatientNavigator = () => {
           tabBarOptions={{
             activeTintColor: appColors.primary,
             inactiveTintColor: inactiveColor,
+            showLabel: false,
             style: {
               backgroundColor: appColors.backgroundColor,
             },
